@@ -8,6 +8,27 @@
         "metadata": {
           "description": "Location for all resources."
         }
+      },
+      "image": {
+        "type": "string",
+        "metadata": {
+          "description": "Container image to deploy. Should be of the form accountName/imagename:tag for images stored in Docker Hub or a fully qualified URI for a private registry like the Azure Container Registry."
+        },
+        "defaultValue": "paddycontainers.azurecr.io/mythicalgo:v1"
+      },
+      "cpuCores": {
+        "type": "string",
+        "metadata": {
+          "description": "The number of CPU cores to allocate to the container. Must be an integer."
+        },
+        "defaultValue": "1.0"
+      },
+      "memoryInGb": {
+        "type": "string",
+        "metadata": {
+          "description": "The amount of memory to allocate to the container in gigabytes."
+        },
+        "defaultValue": "1.5"
       }
     },
     "variables": {
@@ -55,13 +76,13 @@
         "properties": {
           "containers": [
             {
-              "name": "mythicalgo",
+              "name": "container1",
               "properties": {
-                "image": "paddycontainers.azurecr.io/mythicalgo:v1",
+                "image": "[parameters('image')]",
                 "resources": {
                   "requests": {
-                    "cpu": 1.0,
-                    "memoryInGB": 1.5
+                    "cpu": "[parameters('cpuCores')]",
+                    "memoryInGB": "[parameters('memoryInGb')]"
                   }
                 },
                 "environmentVariables": [
@@ -78,6 +99,40 @@
                     "value": "2"
                   },
                   {
+                    "name": "INPUT_BLOB",
+                    "value": "<>"
+                  },
+                  {
+                    "name": "OUTPUT_BLOB",
+                    "value": "<>"
+                  }
+                ],
+                "command": []
+              }
+            },
+            {
+              "name": "container2",
+              "properties": {
+                "image": "[parameters('image')]",
+                "resources": {
+                  "requests": {
+                    "cpu": "[parameters('cpuCores')]",
+                    "memoryInGB": "[parameters('memoryInGb')]"
+                  }
+                },
+                "environmentVariables": [
+                  {
+                    "name": "ENV_VAR1",
+                    "value": "Welcome"
+                  },
+                  {
+                    "name": "ENV_VAR2",
+                    "value": "to ACI Orchestration"
+                  },
+                  {
+                    "name": "SLEEP_TIME",
+                    "value": "2"
+                  },                  {
                     "name": "INPUT_BLOB",
                     "value": "<>"
                   },

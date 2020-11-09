@@ -83,6 +83,13 @@ def main(inputblob: func.InputStream,
     aciarmJSON["resources"][1]["properties"]["imageRegistryCredentials"][0]["username"] = os.environ["ACR_USERNAME"]
     aciarmJSON["resources"][1]["properties"]["imageRegistryCredentials"][0]["password"] = os.environ["ACR_PASSWORD"]
 
+    #Apply Input & Output Configuration
+    #Convert hard coded Environment Variables to dynamic assignment 
+    aciarmJSON["resources"][1]["properties"]["containers"][0]["properties"]["environmentVariables"][3] = {"name": "INPUT_BLOB", "value":inputblob.name}
+    aciarmJSON["resources"][1]["properties"]["containers"][0]["properties"]["environmentVariables"][4] = {"name": "OUTPUT_BLOB", "value":aciresourcename}
+
+
+
     # Initialize the deployer class
     creator = Creator(deploymentname, os.environ['AZURE_SUBSCRIPTION_ID'], os.environ['RESOURCE_GROUP'], aciarmJSON)
     print("Beginning the deployment... \n\n")
