@@ -92,10 +92,12 @@ def main(inputblob: func.InputStream,
 
     # Initialize the deployer class
     creator = Creator(deploymentname, os.environ['AZURE_SUBSCRIPTION_ID'], os.environ['RESOURCE_GROUP'], aciarmJSON)
-    print("Beginning the deployment... \n\n")
+    print("Beginning deployment {} for input file {}... \n\n".format(aciresourcename,inputblob.name))
     # Deploy the template
     creator.create()
     # Need something to validate this...
+    print("Deployment {} complete... \n\n".format(aciresourcename))
+
 
 
 
