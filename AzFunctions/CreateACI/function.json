@@ -1,0 +1,19 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "name": "inputblob",
+      "type": "blobTrigger",
+      "direction": "in",
+      "path": "datainput/{name}",
+      "connection": "mythicalsolverstorage_STORAGE"
+    },
+    {
+      "name": "aciarmtemplate",
+      "type": "blob",
+      "direction": "in",
+      "path": "aciarmtemplates/azuredeploy.json",
+      "connection": "mythicalsolverstorage_STORAGE"
+    }
+  ]
+}
